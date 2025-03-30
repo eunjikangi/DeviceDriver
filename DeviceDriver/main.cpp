@@ -2,6 +2,8 @@
 #include "DeviceDriver.h"
 #include "FlashMemoryDevice.h"
 
+using namespace testing;
+
 class FlashMock : public FlashMemoryDevice {
 public:
 	MOCK_METHOD(unsigned char, read, (long address), (override));
@@ -17,6 +19,19 @@ TEST(TS, read_5회호출) {
 	dd.read(0xA);
 }
 
+TEST(TS, 5회호출시_모두같은값) {
+	FlashMock mock;
+	EXPECT_CALL(mock, read(0xA))
+		.WillOnce(Return(0xB))
+		.WillOnce(Return(0xB))
+		.WillOnce(Return(0xB))
+		.WillOnce(Return(0xB))
+		.WillOnce(Return(0xC));
+
+	DeviceDriver dd{ &mock };
+
+	EXPECT_THROW(dd.read(0xA), std::exception);
+}
 
 int main() {
 	::testing::InitGoogleMock();
