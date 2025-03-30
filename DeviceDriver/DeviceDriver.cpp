@@ -7,17 +7,19 @@ DeviceDriver::DeviceDriver(FlashMemoryDevice* hardware) : m_hardware(hardware)
 
 int DeviceDriver::read(long address)
 {
-    // TODO: implement this method properly
-    int ret = (int)(m_hardware->read(address));
+    int prevData = -1;
 
-    for (int i = 0; i < 4; i++) {
-        int b = (int)(m_hardware->read(address));
-        if (ret != b) {
+    for (int readCount = 0; readCount < 5; readCount++) {
+        int curData = (int)(m_hardware->read(address));
+
+        if (prevData != -1 && curData != prevData) {
             throw std::exception("ERROR");
         }
+
+        prevData = curData;
     }
 
-    return ret;
+    return prevData;
 }
 
 void DeviceDriver::write(long address, int data)

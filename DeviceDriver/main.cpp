@@ -10,7 +10,7 @@ public:
 	MOCK_METHOD(void, write, (long address, unsigned char data), (override));
 };
 
-TEST(TS, read_5회호출) {
+TEST(TS, 5회_Read) {
 	FlashMock mock;
 	EXPECT_CALL(mock, read(0xA))
 		.Times(5);
@@ -19,7 +19,7 @@ TEST(TS, read_5회호출) {
 	dd.read(0xA);
 }
 
-TEST(TS, 5회호출시_모두같은값) {
+TEST(TS, 5회_Read시_모두같은값) {
 	FlashMock mock;
 	EXPECT_CALL(mock, read(0xA))
 		.WillOnce(Return(0xB))
