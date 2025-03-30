@@ -1,5 +1,8 @@
 #include "DeviceDriver.h"
+#include <iostream>
 #include "stdexcept"
+
+using namespace std;
 
 DeviceDriver::DeviceDriver(FlashMemoryDevice* hardware) : m_hardware(hardware)
 {
@@ -31,4 +34,24 @@ void DeviceDriver::write(long address, int data)
     }
 
     m_hardware->write(address, (unsigned char)data);
+}
+
+void DeviceDriver::readAndPrint(int startAddr, int EndAddr)
+{
+    for (int addr = startAddr; addr <= EndAddr; addr++)
+    {
+        int ret = (int)(m_hardware->read(addr));
+        cout << ret << endl;
+    }
+}
+
+void DeviceDriver::WriteAll(int value)
+{
+    int startAddr = 0x0;
+    int EndAddr = 0x4;
+
+    for (int addr = startAddr; addr <= EndAddr; addr++)
+    {
+        m_hardware->write(addr, (unsigned char)value);
+    }
 }
