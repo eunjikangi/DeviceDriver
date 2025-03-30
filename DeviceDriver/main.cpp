@@ -33,6 +33,15 @@ TEST(TS, 5회_Read시_모두같은값) {
 	EXPECT_THROW(dd.read(0xA), std::exception);
 }
 
+TEST(TS, isWritten) {
+	FlashMock mock;
+	EXPECT_CALL(mock, read(0xA))
+		.WillOnce(Return(0xD));
+
+	DeviceDriver dd{ &mock };
+	EXPECT_THROW(dd.write(0xA, 0xC), std::exception);
+}
+
 int main() {
 	::testing::InitGoogleMock();
 	return RUN_ALL_TESTS();
