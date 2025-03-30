@@ -10,4 +10,7 @@ public:
 
 protected:
     FlashMemoryDevice* m_hardware;
+
+private:
+
 };
