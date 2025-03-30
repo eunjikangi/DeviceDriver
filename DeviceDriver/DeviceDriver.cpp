@@ -40,7 +40,7 @@ void DeviceDriver::readAndPrint(int startAddr, int EndAddr)
 {
     for (int addr = startAddr; addr <= EndAddr; addr++)
     {
-        int ret = (int)(m_hardware->read(addr));
+        int ret = read(addr);
         cout << ret << endl;
     }
 }

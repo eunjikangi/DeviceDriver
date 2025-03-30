@@ -42,6 +42,14 @@ TEST(TS, isWritten) {
 	EXPECT_THROW(dd.write(0xA, 0xC), std::exception);
 }
 
+TEST(TS, ReadTest) {
+	FlashMock mock;
+	EXPECT_CALL(mock, read).Times(25);
+
+	DeviceDriver dd{ &mock };
+	dd.readAndPrint(0x0, 0x4);
+}
+
 int main() {
 	::testing::InitGoogleMock();
 	return RUN_ALL_TESTS();
