@@ -127,12 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="gilded_rose.cpp" />
+    <ClCompile Include="DeviceDriver.cpp" />
     <ClCompile Include="gilded_rose_test.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gilded_rose.h" />
+    <ClInclude Include="DeviceDriver.h" />
+    <ClInclude Include="FlashMemoryDevice.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
